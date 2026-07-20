@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mente Ágil</title>
 </head>
+
 <body>
 
     <div class="contenedor">
@@ -27,6 +28,54 @@
         </div>
 
     </div>
+<script>
 
+    let segundos = 25 * 60
+    let corriendo = false
+    let intervalo = null
+
+    const display = document.getElementById('tiempo')
+    const btnIniciar = document.getElementById('btn-iniciar')
+    const btnReiniciar = document.getElementById('btn-reiniciar')
+
+    function mostrarTiempo() {
+        let mins = Math.floor(segundos / 60)
+        let segs = segundos % 60
+        display.textContent = 
+            String(mins).padStart(2, '0') + ':' + 
+            String(segs).padStart(2, '0')
+    }
+
+    btnIniciar.addEventListener('click', function() {
+        if (!corriendo) {
+            corriendo = true
+            btnIniciar.textContent = 'Pausar'
+            intervalo = setInterval(function() {
+                segundos--
+                mostrarTiempo()
+                if (segundos <= 0) {
+                    clearInterval(intervalo)
+                    corriendo = false
+                    btnIniciar.textContent = 'Iniciar'
+                    alert('¡Tiempo terminado!')
+                }
+            }, 1000)
+        } else {
+            corriendo = false
+            clearInterval(intervalo)
+            btnIniciar.textContent = 'Iniciar'
+        }
+    })
+
+    btnReiniciar.addEventListener('click', function() {
+        clearInterval(intervalo)
+        corriendo = false
+        segundos = 25 * 60
+        btnIniciar.textContent = 'Iniciar'
+        mostrarTiempo()
+    })
+
+</script>
 </body>
+
 </html>
