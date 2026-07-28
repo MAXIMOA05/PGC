@@ -26,7 +26,15 @@
             <button id="btn-iniciar">Iniciar</button>
             <button id="btn-reiniciar">Reiniciar</button>
         </div>
-
+        
+        <div class="tareas">
+            <h2>Mis tareas</h2>
+            <div class="agregar-tarea">
+            <input type="text" id="input-tarea" placeholder="Escribe una tarea..."/>
+            <button id="btn-agregar">Agregar</button>
+        </div>
+            <ul id="lista-tareas"></ul>
+        </div>
     </div>
     
 <script>
@@ -98,6 +106,39 @@ btnDescansoCorto.addEventListener('click', function() {
 
 btnDescansoLargo.addEventListener('click', function() {
     cambiarModo(15)
+})
+
+const inputTarea = document.getElementById('input-tarea')
+const btnAgregar = document.getElementById('btn-agregar')
+const listaTareas = document.getElementById('lista-tareas')
+
+function agregarTarea() {
+    const texto = inputTarea.value.trim()
+    
+    if (texto === '') return
+
+    const li = document.createElement('li')
+    li.textContent = texto
+    
+    const btnListo = document.createElement('button')
+    btnListo.textContent = 'Listo'
+    
+    btnListo.addEventListener('click', function() {
+        li.style.textDecoration = 'line-through'
+    })
+    
+    li.appendChild(btnListo)
+    listaTareas.appendChild(li)
+    
+    inputTarea.value = ''
+}
+
+btnAgregar.addEventListener('click', function() {
+    agregarTarea()
+})
+
+inputTarea.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') agregarTarea()
 })
 </script>
 </body>
