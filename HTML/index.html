@@ -13,9 +13,9 @@
         <h1>Mente Ágil</h1>
 
         <div class="modos">
-            <button>Concentración</button>
-            <button>Descanso corto</button>
-            <button>Descanso largo</button>
+            <button id="btn-concentracion">Concentración</button>
+            <button id="btn-descanso-corto">Descanso corto</button>
+            <button id="btn-descanso-largo">Descanso largo</button>
         </div>
 
         <div class="temporizador">
@@ -28,6 +28,7 @@
         </div>
 
     </div>
+    
 <script>
 
     let segundos = 25 * 60
@@ -75,6 +76,29 @@
         mostrarTiempo()
     })
 
+const btnConcentracion = document.getElementById('btn-concentracion')
+const btnDescansoCorto = document.getElementById('btn-descanso-corto')
+const btnDescansoLargo = document.getElementById('btn-descanso-largo')
+
+function cambiarModo(nuevoTiempo) {
+    clearInterval(intervalo)
+    corriendo = false
+    segundos = nuevoTiempo * 60
+    btnIniciar.textContent = 'Iniciar'
+    mostrarTiempo()
+}
+
+btnConcentracion.addEventListener('click', function() {
+    cambiarModo(25)
+})
+
+btnDescansoCorto.addEventListener('click', function() {
+    cambiarModo(5)
+})
+
+btnDescansoLargo.addEventListener('click', function() {
+    cambiarModo(15)
+})
 </script>
 </body>
 
