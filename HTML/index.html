@@ -36,9 +36,17 @@
             <ul id="lista-tareas"></ul>
         </div>
     </div>
-    
+        <div class="agregar-tarea">
+        <input type="text" id="input-tarea" placeholder="Escribe una tarea..."/>
+        <select id="input-prioridad">
+            <option value="alta">🔴 Alta</option>
+            <option value="media">🟡 Media</option>
+            <option value="baja">🟢 Baja</option>
+        </select>
+        <input type="number" id="input-pomodoros" min="1" max="10" value="1" placeholder="🍅"/>
+        <button id="btn-agregar">Agregar</button>
+    </div>
 <script>
-
     let segundos = 25 * 60
     let corriendo = false
     let intervalo = null
