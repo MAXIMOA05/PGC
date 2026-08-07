@@ -40,7 +40,10 @@
         </div>
 
         <ul id="lista-tareas"></ul>
-
+            <div class="distracciones">
+                <p>Distracciones: <span id="contador-distracciones">0</span></p>
+                <p id="aviso-distraccion"></p>
+            </div>  
     </div>
 <script>
     let segundos = 25 * 60
@@ -148,6 +151,22 @@ btnAgregar.addEventListener('click', function() {
 
 inputTarea.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') agregarTarea()
+})
+let distracciones = 0
+const contadorDistracciones = document.getElementById('contador-distracciones')
+const avisoDistraccion = document.getElementById('aviso-distraccion')
+
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        if (corriendo) {
+            distracciones++
+            contadorDistracciones.textContent = distracciones
+        }
+    } else {
+        if (distracciones > 0) {
+            avisoDistraccion.textContent = '⚠️ Te distrajiste ' + distracciones + ' veces en este Pomodoro'
+        }
+    }
 })
 </script>
 </body>
