@@ -44,11 +44,34 @@
                 <p>Distracciones: <span id="contador-distracciones">0</span></p>
                 <p id="aviso-distraccion"></p>
             </div>  
+        
+        <button id="btn-config">⚙️ Configuración</button>
+
+        <div id="modal-config" style="display:none;">
+            <div class="modal-contenido">
+                <h2>Configuración</h2>
+                
+                <label>Concentración (min)</label>
+                <input type="number" id="config-concentracion" value="25" min="1" max="60"/>
+                
+                <label>Descanso corto (min)</label>
+                <input type="number" id="config-descanso-corto" value="5" min="1" max="30"/>
+                
+                <label>Descanso largo (min)</label>
+                <input type="number" id="config-descanso-largo" value="15" min="1" max="60"/>
+
+                <button id="btn-guardar-config">Guardar</button>
+                <button id="btn-cerrar-config">Cerrar</button>
+            </div>
+        </div>    
     </div>
 <script>
     let segundos = 25*60
     let corriendo = false
     let intervalo = null
+    let tiempoConcentracion = 25
+    let tiempoDescansoCorto = 5
+    let tiempoDescansoLargo = 15
 
     const display = document.getElementById('tiempo')
     const btnIniciar = document.getElementById('btn-iniciar')
@@ -111,15 +134,15 @@ function cambiarModo(nuevoTiempo) {
 }
 
 btnConcentracion.addEventListener('click', function() {
-    cambiarModo(25)
+    cambiarModo(tiempoConcentracion)
 })
 
 btnDescansoCorto.addEventListener('click', function() {
-    cambiarModo(5)
+    cambiarModo(tiempoDescansoCorto)
 })
 
 btnDescansoLargo.addEventListener('click', function() {
-    cambiarModo(15)
+    cambiarModo(tiempoDescansoLargo)
 })
 
 const inputTarea = document.getElementById('input-tarea')
@@ -174,6 +197,27 @@ document.addEventListener('visibilitychange', function() {
             avisoDistraccion.textContent = '⚠️ Te distrajiste ' + distracciones + ' veces en este Pomodoro'
         }
     }
+})
+const btnConfig = document.getElementById('btn-config')
+const modalConfig = document.getElementById('modal-config')
+const btnCerrarConfig = document.getElementById('btn-cerrar-config')
+const btnGuardarConfig = document.getElementById('btn-guardar-config')
+
+btnConfig.addEventListener('click', function() {
+    modalConfig.style.display = 'block'
+})
+
+btnCerrarConfig.addEventListener('click', function() {
+    modalConfig.style.display = 'none'
+})
+
+btnGuardarConfig.addEventListener('click', function() {
+    tiempoConcentracion = parseInt(document.getElementById('config-concentracion').value)
+    tiempoDescansoCorto = parseInt(document.getElementById('config-descanso-corto').value)
+    tiempoDescansoLargo = parseInt(document.getElementById('config-descanso-largo').value)
+    
+    cambiarModo(tiempoConcentracion)
+    modalConfig.style.display = 'none'
 })
 </script>
 </body>
