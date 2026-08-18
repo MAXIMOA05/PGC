@@ -59,6 +59,233 @@
         border-color: #58CC02;
         color: #58CC02;
     }
+    .temporizador {
+    text-align: center;
+    background: #f0fce8;
+    border-radius: 16px;
+    padding: 2rem;
+    }
+
+    #tiempo {
+        font-size: 72px;
+        font-weight: 800;
+        color: #58CC02;
+        letter-spacing: 4px;
+    }
+
+    .controles {
+        display: flex;
+        gap: 10px;
+    }
+
+    #btn-iniciar {
+        flex: 2;
+        padding: 12px;
+        background: #58CC02;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        border-bottom: 4px solid #3a9900;
+    }
+
+    #btn-iniciar:hover { background: #49b800; }
+
+    #btn-reiniciar {
+        flex: 1;
+        padding: 12px;
+        background: #f5f5f5;
+        color: #666;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .agregar-tarea {
+        background: #f9f9f9;
+        border-radius: 16px;
+        padding: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .agregar-tarea input[type="text"] {
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 2px solid #e0e0e0;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .agregar-tarea input[type="text"]:focus {
+        outline: none;
+        border-color: #58CC02;
+    }
+
+    .agregar-tarea select,
+    .agregar-tarea input[type="number"] {
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: 2px solid #e0e0e0;
+        font-size: 14px;
+    }
+
+    #btn-agregar {
+        padding: 10px;
+        background: #58CC02;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        border-bottom: 3px solid #3a9900;
+    }
+
+    #lista-tareas {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    #lista-tareas li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 14px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        border: 2px solid #e0e0e0;
+        font-size: 13px;
+        gap: 8px;
+    }
+
+    .btn-listo {
+        padding: 5px 14px;
+        background: #58CC02;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .distracciones {
+        background: #fff8e6;
+        border-radius: 12px;
+        padding: 1rem;
+        border: 2px solid #ffd166;
+        font-size: 14px;
+        color: #333;
+    }
+
+    #aviso-distraccion {
+        margin-top: 6px;
+        font-weight: 600;
+        color: #b36800;
+    }
+
+    #btn-config {
+        padding: 10px;
+        background: #f5f5f5;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        color: #666;
+    }
+
+    #btn-config:hover {
+        border-color: #58CC02;
+        color: #58CC02;
+    }
+
+    #modal-config {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100;
+    }
+
+    .modal-contenido {
+        background: #fff;
+        border-radius: 20px;
+        padding: 2rem;
+        width: 90%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .modal-contenido label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .modal-contenido input {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .modal-contenido input:focus {
+        outline: none;
+        border-color: #58CC02;
+    }
+
+    #btn-guardar-config {
+        padding: 10px;
+        background: #58CC02;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        border-bottom: 3px solid #3a9900;
+    }
+
+    #btn-cerrar-config {
+        padding: 10px;
+        background: #f5f5f5;
+        color: #666;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    #btn-test {
+    width: 100%;
+    padding: 12px;
+    background: #1CB0F6;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 4px solid #0a8fc4;
+    }
+
+    #btn-test:hover { background: #0a9fd8; }    
 </style>
 </head>
 
@@ -119,8 +346,11 @@
                 <button id="btn-guardar-config">Guardar</button>
                 <button id="btn-cerrar-config">Cerrar</button>
             </div>
-        </div>    
+        </div>
     </div>
+    <a href="test.html">
+    <button id="btn-test">🧠 Hacer test de concentración</button>
+</a>
 <script>
     let segundos = 25*60
     let corriendo = false

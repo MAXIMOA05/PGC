@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDAC - Prueba Digital de Atención y Concentración</title>
+  <style>
+    * {
+      box-sizing: border-box;
+  }
+
+  body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #202124;
+  }
+
+  .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px;
+  }
+
+  .card {
+      background: white;
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 3px 14px rgba(0,0,0,.08);
+  }
+
+  h1 {
+      margin-top: 0;
+      font-size: 28px;
+  }
+
+  h2 {
+      font-size: 21px;
+  }
+
+  p {
+      line-height: 1.55;
+  }
+
+  .center {
+      text-align: center;
+  }
+
+  .hidden {
+      display: none !important;
+  }
+
+  .notice {
+      padding: 14px 16px;
+      border-radius: 10px;
+      background: #eef3f7;
+      margin: 16px 0;
+  }
+
+  label {
+      display: block;
+      font-weight: 600;
+      margin: 14px 0 6px;
+  }
+
+  input {
+      width: 100%;
+      max-width: 420px;
+      padding: 11px;
+      border: 1px solid #c9cdd2;
+      border-radius: 8px;
+      font-size: 16px;
+  }
+
+  button {
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #58CC02;
+      color: white;
+  }
+
+  button.secondary {
+      background: #687078;
+  }
+
+  button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+  }
+
+  .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 15px;
+  }
+
+  .timer {
+      font-size: 27px;
+      font-weight: 800;
+      min-width: 105px;
+      text-align: center;
+  }
+
+  .progress {
+      height: 10px;
+      background: #e4e7ea;
+      border-radius: 99px;
+      overflow: hidden;
+  }
+
+  .progress > div {
+      height: 100%;
+      width: 0;
+      background: #58CC02;
+      transition: width .15s;
+  }
+
+  .instructions {
+      font-size: 18px;
+      text-align: center;
+      margin: 16px auto 22px;
+      max-width: 800px;
+  }
+
+  .stimuli {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+  }
+
+  .stimulus {
+      height: 74px;
+      background: #fff;
+      border: 2px solid #d5d9dd;
+      border-radius: 9px;
+      font-size: 32px;
+      font-family: "Times New Roman", serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+  }
+
+  .stimulus:hover {
+      background: #f0f4f8;
+  }
+
+  .stimulus.selected {
+      border-color: #58CC02;
+      background: #eaf7ee;
+  }
+
+  .stimulus.correct {
+      border-color: #16803c;
+      background: #eaf7ee;
+  }
+
+  .stimulus.wrong {
+      border-color: #c62828;
+      background: #fdecec;
+  }
+
+  .status {
+      text-align: center;
+      font-weight: 700;
+      min-height: 24px;
+  }
+
+  .results {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+  }
+
+  .metric {
+      background: #f6f7f8;
+      padding: 16px;
+      border-radius: 10px;
+      text-align: center;
+  }
+
+  .metric strong {
+      display: block;
+      font-size: 25px;
+      margin-top: 6px;
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+  }
+
+  th, td {
+      padding: 9px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+  }
+
+  th {
+      background: #f2f4f6;
+  }
+
+  .small {
+      font-size: 13px;
+      color: #5f6368;
+  }
+
+  .btn-volver {
+      margin-bottom: 20px;
+      background: #f5f5f5;
+      color: #333;
+      border: 2px solid #e0e0e0;
+  }
+
+  @media (max-width: 800px) {
+      .stimuli {
+          grid-template-columns: repeat(5, 1fr);
+      }
+      .results {
+          grid-template-columns: 1fr 1fr;
+      }
+  }
+
+  @media (max-width: 520px) {
+      .stimuli {
+          grid-template-columns: repeat(4, 1fr);
+      }
+      .results {
+          grid-template-columns: 1fr;
+      }
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+  <button class="btn-volver" onclick="window.location.href='index.html'">← Volver a Mente Ágil</button>
+
+  <section id="start" class="card">
+    <h1>Prueba Digital de Atención y Concentración (PDAC)</h1>
+    <p class="center"><strong>Versión piloto inspirada en tareas de cancelación visual tipo d2</strong></p>
+
+    <div class="notice">
+      <strong>Importante:</strong> esta versión es una herramienta experimental para investigación académica.
+      No constituye el test d2 oficial ni debe interpretarse como una prueba clínica o diagnóstica.
+    </div>
+
+    <label for="participant">Código del participante</label>
+    <input id="participant" placeholder="Ej.: P001" maxlength="30">
+
+    <label for="age">Edad</label>
+    <input id="age" type="number" min="16" max="100" placeholder="Ej.: 20">
+
+    <label for="semester">Semestre</label>
+    <input id="semester" placeholder="Ej.: 3">
+
+    <div class="notice">
+      <strong>Condiciones recomendadas:</strong> realizar la prueba en computador, en un lugar tranquilo,
+      sin pausas y con el navegador en pantalla completa si es posible.
+    </div>
+
+    <h2>Instrucciones</h2>
+    <p>
+      En cada bloque aparecerán letras <strong>d</strong> y <strong>p</strong> con una o dos marcas.
+      Debes seleccionar <strong>ÚNICAMENTE las letras "d" que tengan exactamente DOS marcas</strong>.
+    </p>
+    <p>
+      Trabaja lo más rápido posible, pero procurando cometer el menor número de errores.
+      Cada bloque dura <strong>30 segundos</strong>. La prueba contiene un ejercicio de práctica y
+      cinco bloques de evaluación.
+    </p>
+
+    <p class="small">
+      No utilices las funciones de retroceso o recarga del navegador durante la prueba.
+    </p>
+
+    <div class="center" style="margin-top:22px">
+      <button id="startBtn">Comenzar práctica</button>
+    </div>
+  </section>
+
+  <section id="practice" class="card hidden">
+    <div class="topbar">
+      <div><strong>Práctica</strong></div>
+      <div class="timer" id="practiceTimer">20 s</div>
+    </div>
+    <div class="progress"><div id="practiceProgress"></div></div>
+    <div class="instructions">
+      Selecciona solamente la <strong>d</strong> que tenga <strong>exactamente dos marcas</strong>.
+    </div>
+    <div id="practiceStimuli" class="stimuli"></div>
+    <div id="practiceStatus" class="status"></div>
+  </section>
+
+  <section id="test" class="card hidden">
+    <div class="topbar">
+      <div><strong id="blockTitle">Bloque 1 de 5</strong></div>
+      <div class="timer" id="timer">30 s</div>
+    </div>
+    <div class="progress"><div id="progress"></div></div>
+    <div class="instructions">
+      Selecciona solamente la <strong>d</strong> que tenga <strong>exactamente dos marcas</strong>.
+    </div>
+    <div id="stimuli" class="stimuli"></div>
+    <div id="status" class="status"></div>
+  </section>
+
+  <section id="results" class="card hidden">
+    <h1>Resultados</h1>
+    <p>La prueba ha finalizado. Guarda el archivo de resultados para incorporarlo posteriormente a tu base de datos.</p>
+
+    <div id="overallMetrics" class="results"></div>
+    <div id="blockTable"></div>
+
+    <div class="notice">
+      <strong>Interpretación:</strong> los indicadores son puntuaciones experimentales de esta versión.
+      Antes de utilizar categorías como "bajo", "medio" o "alto", deben establecerse criterios
+      psicométricos y normas para la población estudiada.
+    </div>
+
+    <div class="center">
+      <button id="downloadBtn">Descargar resultados CSV</button>
+      <button id="restartBtn" class="secondary">Nueva aplicación</button>
+    </div>
+    <p class="small center" style="margin-top:18px">
+      Recomendación: identifica el archivo con el código del participante y conserva la base de datos de forma segura.
+    </p>
+  </section>
+
+  </div>
+
+<script>
+  const CONFIG = {
+    practiceSeconds: 20,
+    blockSeconds: 30,
+    blocks: 5,
+    stimuliPerBlock: 60
+  };
+
+  const state = {
+    participant: "",
+    age: "",
+    semester: "",
+    practice: null,
+    blocks: [],
+    currentBlock: 0,
+    startTime: null,
+    timerInterval: null,
+    stimuli: [],
+    clicks: []
+  };
+
+  function makeStimulus(isTarget){
+    const pool = isTarget ? ["d\u0308"] : ["d\u0304","p\u0304","p\u0308"];
+    return pool[Math.floor(Math.random()*pool.length)];
+  }
+
+  function generateStimuli(n){
+    const arr=[];
+    for(let i=0;i<n;i++){
+      arr.push({text:makeStimulus(Math.random()<0.25), target:false, clicked:false});
+    }
+    arr.forEach(x => x.target = (x.text === "d\u0308"));
+    return arr;
+  }
+
+  function renderStimuli(container, stimuli, clickHandler){
+    container.innerHTML="";
+    stimuli.forEach((s,i)=>{
+      const el=document.createElement("button");
+      el.type="button";
+      el.className="stimulus";
+      el.textContent=s.text;
+      el.dataset.index=i;
+      el.addEventListener("click",()=>clickHandler(i,el));
+      container.appendChild(el);
+    });
+  }
+
+  function show(id){
+    ["start","practice","test","results"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+    document.getElementById(id).classList.remove("hidden");
+  }
+
+  function startPractice(){
+    const stimuli=generateStimuli(30);
+    state.practice={stimuli, clicks:[], start:performance.now()};
+    renderStimuli(document.getElementById("practiceStimuli"),stimuli,(i,el)=>{
+      if(stimuli[i].clicked)return;
+      stimuli[i].clicked=true;
+      state.practice.clicks.push({index:i,time:performance.now()-state.practice.start});
+      el.classList.add(stimuli[i].target ? "correct":"wrong");
+    });
+    show("practice");
+    runTimer(CONFIG.practiceSeconds,"practiceTimer","practiceProgress",finishPractice);
+  }
+
+  function runTimer(seconds,timerId,progressId,onDone){
+    clearInterval(state.timerInterval);
+    const start=performance.now();
+    const end=start+seconds*1000;
+    const timer=document.getElementById(timerId);
+    const progress=document.getElementById(progressId);
+    function tick(){
+      const remain=Math.max(0,end-performance.now());
+      timer.textContent=(remain/1000).toFixed(1)+" s";
+      progress.style.width=(100*(1-remain/(seconds*1000)))+"%";
+      if(remain<=0){
+        clearInterval(state.timerInterval);
+        onDone();
+      }
+    }
+    tick();
+    state.timerInterval=setInterval(tick,50);
+  }
+
+  function finishPractice(){
+    const p=state.practice;
+    const hits=p.clicks.filter(c=>p.stimuli[c.index].target).length;
+    const falseAlarms=p.clicks.filter(c=>!p.stimuli[c.index].target).length;
+    document.getElementById("practiceStatus").textContent=
+      `Práctica terminada: ${hits} aciertos, ${falseAlarms} errores de selección.`;
+    setTimeout(startTest,1800);
+  }
+
+  function startTest(){
+    state.currentBlock=0;
+    state.blocks=[];
+    startBlock();
+  }
+
+  function startBlock(){
+    const b=state.currentBlock;
+    state.stimuli=generateStimuli(CONFIG.stimuliPerBlock);
+    state.clicks=[];
+    state.startTime=performance.now();
+    document.getElementById("blockTitle").textContent=`Bloque ${b+1} de ${CONFIG.blocks}`;
+    document.getElementById("status").textContent="";
+    renderStimuli(document.getElementById("stimuli"),state.stimuli,(i,el)=>{
+      if(state.stimuli[i].clicked)return;
+      state.stimuli[i].clicked=true;
+      state.clicks.push({index:i,time:performance.now()-state.startTime});
+      el.classList.add(state.stimuli[i].target ? "selected":"wrong");
+    });
+    show("test");
+    runTimer(CONFIG.blockSeconds,"timer","progress",finishBlock);
+  }
+
+  function finishBlock(){
+    const duration=performance.now()-state.startTime;
+    const totalTargets=state.stimuli.filter(s=>s.target).length;
+    const hits=state.clicks.filter(c=>state.stimuli[c.index].target).length;
+    const errors=state.clicks.filter(c=>!state.stimuli[c.index].target).length;
+    const omissions=totalTargets-hits;
+    const processed=state.clicks.length;
+    const precision=processed ? (hits/processed)*100 : 0;
+    const concentration=hits-errors;
+    state.blocks.push({
+      block:state.currentBlock+1,
+      totalStimuli:state.stimuli.length,
+      targets:totalTargets,
+      hits,errors,omissions,processed,precision,concentration,
+      durationMs:duration
+    });
+    state.currentBlock++;
+    if(state.currentBlock<CONFIG.blocks){
+      setTimeout(startBlock,700);
+    }else{
+      setTimeout(showResults,700);
+    }
+  }
+
+  function showResults(){
+    show("results");
+    const b=state.blocks;
+    const sum=(key)=>b.reduce((a,x)=>a+x[key],0);
+    const hits=sum("hits"), errors=sum("errors"), omissions=sum("omissions"), processed=sum("processed");
+    const precision=processed ? hits/processed*100 : 0;
+    const concentration=hits-errors;
+    document.getElementById("overallMetrics").innerHTML=`
+      <div class="metric">Aciertos<strong>${hits}</strong></div>
+      <div class="metric">Errores<strong>${errors}</strong></div>
+      <div class="metric">Omisiones<strong>${omissions}</strong></div>
+      <div class="metric">Procesados<strong>${processed}</strong></div>
+      <div class="metric">Precisión<strong>${precision.toFixed(1)}%</strong></div>
+      <div class="metric">Índice de concentración<strong>${concentration}</strong></div>
+    `;
+    let rows=b.map(x=>`
+      <tr>
+        <td>${x.block}</td><td>${x.hits}</td><td>${x.errors}</td><td>${x.omissions}</td>
+        <td>${x.processed}</td><td>${x.precision.toFixed(1)}%</td><td>${x.concentration}</td>
+      </tr>`).join("");
+    document.getElementById("blockTable").innerHTML=`
+      <table>
+        <thead><tr><th>Bloque</th><th>Aciertos</th><th>Errores</th><th>Omisiones</th><th>Procesados</th><th>Precisión</th><th>Concentración</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+
+  function csvEscape(v){
+    const s=String(v ?? "");
+    return '"' + s.replaceAll('"','""') + '"';
+  }
+
+  function downloadCSV(){
+    const now=new Date().toISOString();
+    const b=state.blocks;
+    const lines=[];
+    lines.push(["fecha_hora","codigo_participante","edad","semestre","bloque",
+      "estimulos","objetivos","aciertos","errores","omisiones",
+      "procesados","precision_porcentaje","indice_concentracion"
+    ].map(csvEscape).join(","));
+    b.forEach(x=>{
+      lines.push([now,state.participant,state.age,state.semester,x.block,
+        x.totalStimuli,x.targets,x.hits,x.errors,x.omissions,x.processed,
+        x.precision.toFixed(2),x.concentration
+      ].map(csvEscape).join(","));
+    });
+    const blob=new Blob(["\uFEFF"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    const safe=(state.participant||"sin_codigo").replace(/[^a-zA-Z0-9_-]/g,"_");
+    a.href=url;
+    a.download=`PDAC_${safe}_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById("startBtn").addEventListener("click",()=>{
+    state.participant=document.getElementById("participant").value.trim();
+    state.age=document.getElementById("age").value.trim();
+    state.semester=document.getElementById("semester").value.trim();
+    if(!state.participant){
+      alert("Ingrese un código de participante antes de comenzar.");
+      return;
+    }
+    startPractice();
+  });
+
+  document.getElementById("downloadBtn").addEventListener("click",downloadCSV);
+  document.getElementById("restartBtn").addEventListener("click",()=>location.reload());
+</script>
+</body>
+</html>
