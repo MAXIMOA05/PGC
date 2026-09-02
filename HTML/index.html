@@ -229,6 +229,7 @@
         flex-direction: column;
         gap: 12px;
         box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        
     }
 
     .modal-contenido label {
@@ -348,6 +349,76 @@
             </div>
         </div>
     </div>
+        <!-- MODAL: CONSENTIMIENTO INFORMADO -->
+    <div id="modal-consentimiento" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:20px; padding:2rem; width:90%; max-width:500px; max-height:80vh; overflow-y:auto; display:flex; flex-direction:column; gap:1rem;">
+            <h2 style="color:#58CC02; margin:0;">Consentimiento Informado</h2>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                Este proyecto hace parte de una investigación académica desarrollada por estudiantes de 
+                Ingeniería de Sistemas de la Universidad de Cundinamarca, seccional Ubaté. 
+                Su participación es completamente voluntaria y anónima.
+            </p>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                Los datos recolectados incluyen: tiempo de sesión, número de distracciones detectadas, 
+                tareas registradas y resultados de la prueba de atención. Ningún dato personal identificable 
+                será solicitado ni almacenado.
+            </p>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                La plataforma <strong>no accede a cámara, micrófono ni ningún sensor del dispositivo</strong>, 
+                en cumplimiento de la Ley 1581 de 2012 de Colombia sobre Protección de Datos Personales.
+            </p>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                Al hacer clic en <strong>"Acepto"</strong>, confirmas que has leído y comprendido esta 
+                información y que participas voluntariamente en el estudio.
+            </p>
+            <button id="btn-aceptar" style="background:#58CC02; color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:700; cursor:pointer; border-bottom:3px solid #3a9900;">
+                ✓ Acepto participar
+            </button>
+            <button id="btn-rechazar" style="background:#f5f5f5; color:#666; border:2px solid #e0e0e0; border-radius:10px; padding:10px; font-size:14px; font-weight:600; cursor:pointer;">
+                No acepto
+            </button>
+            <div style="margin-top:8px; padding:12px; background:#f0fce8; border-radius:10px;">
+    <p style="font-size:12px; color:#555; margin:0 0 4px;">Tu código de participante:</p>
+    <p id="codigo-participante" style="font-size:13px; font-weight:700; color:#3a9900; word-break:break-all; margin:0;"></p>
+</div>
+        </div>
+    </div>
+
+    <!-- MODAL: PRUEBA D2 REQUERIDA -->
+    <div id="modal-d2" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:20px; padding:2rem; width:90%; max-width:420px; display:flex; flex-direction:column; gap:1rem; text-align:center;">
+            <span style="font-size:48px;">🧠</span>
+            <h2 style="color:#333; margin:0;">Primero completa el test</h2>
+            <p style="font-size:14px; color:#555; line-height:1.6;">
+                Antes de iniciar tu primera sesión Pomodoro, necesitas completar la 
+                <strong>Prueba de Atención y Concentración (PDAC)</strong>. 
+                Esto nos ayuda a medir tu nivel inicial de concentración.
+            </p>
+            <button onclick="window.location.href='test.html'" style="background:#58CC02; color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:700; cursor:pointer; border-bottom:3px solid #3a9900;">
+                Ir al test ahora
+            </button>
+            <button id="btn-cerrar-d2" style="background:#f5f5f5; color:#666; border:2px solid #e0e0e0; border-radius:10px; padding:10px; font-size:14px; cursor:pointer;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL: VALORACIÓN DE CONCENTRACIÓN -->
+    <div id="modal-valoracion" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:20px; padding:2rem; width:90%; max-width:380px; display:flex; flex-direction:column; gap:1rem; text-align:center;">
+            <span style="font-size:40px;">⭐</span>
+            <h2 style="color:#333; margin:0;">¿Cómo estuvo tu concentración?</h2>
+            <p style="font-size:13px; color:#555;">Califica tu nivel de concentración durante esta sesión</p>
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn-stars" onclick="guardarValoracion(1)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">1</button>
+                <button class="btn-stars" onclick="guardarValoracion(2)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">2</button>
+                <button class="btn-stars" onclick="guardarValoracion(3)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">3</button>
+                <button class="btn-stars" onclick="guardarValoracion(4)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">4</button>
+                <button class="btn-stars" onclick="guardarValoracion(5)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">5</button>
+            </div>
+            <p style="font-size:11px; color:#999;">1 = muy baja · 5 = excelente</p>
+        </div>
+    </div>
     <a href="test.html">
     <button id="btn-test">🧠 Hacer test de concentración</button>
 </a>
@@ -373,6 +444,7 @@
 
   btnIniciar.addEventListener('click', function() {
     if (!corriendo) {
+        if (!verificarD2AntesDeIniciar()) return
         corriendo = true
         btnIniciar.textContent = 'Pausar'
         intervalo = setInterval(function() {
@@ -387,6 +459,7 @@
                 setTimeout(function() {
                     alert('¡Tiempo terminado!')
                 }, 500)
+                mostrarValoracion()
             }
         }, 1000)
     } else {
@@ -407,104 +480,193 @@
         avisoDistraccion.textContent = ''
     })
 
-const btnConcentracion = document.getElementById('btn-concentracion')
-const btnDescansoCorto = document.getElementById('btn-descanso-corto')
-const btnDescansoLargo = document.getElementById('btn-descanso-largo')
+    const btnConcentracion = document.getElementById('btn-concentracion')
+    const btnDescansoCorto = document.getElementById('btn-descanso-corto')
+    const btnDescansoLargo = document.getElementById('btn-descanso-largo')
 
-function cambiarModo(nuevoTiempo) {
-    clearInterval(intervalo)
-    corriendo = false
-    segundos = nuevoTiempo * 60
-    btnIniciar.textContent = 'Iniciar'
-    mostrarTiempo()
-}
+    function cambiarModo(nuevoTiempo) {
+        clearInterval(intervalo)
+        corriendo = false
+        segundos = nuevoTiempo * 60
+        btnIniciar.textContent = 'Iniciar'
+        mostrarTiempo()
+    }
 
-btnConcentracion.addEventListener('click', function() {
-    cambiarModo(tiempoConcentracion)
-})
-
-btnDescansoCorto.addEventListener('click', function() {
-    cambiarModo(tiempoDescansoCorto)
-})
-
-btnDescansoLargo.addEventListener('click', function() {
-    cambiarModo(tiempoDescansoLargo)
-})
-
-const inputTarea = document.getElementById('input-tarea')
-const btnAgregar = document.getElementById('btn-agregar')
-const listaTareas = document.getElementById('lista-tareas')
-
-function agregarTarea() {
-    const texto = inputTarea.value.trim()
-    
-    if (texto === '') return
-    const prioridad = document.getElementById('input-prioridad').value
-    const pomodoros = document.getElementById('input-pomodoros').value
-
-    const colores = { alta: '🔴', media: '🟡', baja: '🟢' }
-
-    const li = document.createElement('li')
-    li.innerHTML = `
-        <span>${colores[prioridad]} ${texto}</span>
-        <span>🍅 ${pomodoros}</span>
-        <button class="btn-listo">Listo</button>
-    `
-
-    li.querySelector('.btn-listo').addEventListener('click', function() {
-        li.style.textDecoration = 'line-through'
-        li.style.opacity = '0.5'
+    btnConcentracion.addEventListener('click', function() {
+        cambiarModo(tiempoConcentracion)
     })
 
-    listaTareas.appendChild(li)
-    
-    inputTarea.value = ''
-}
+    btnDescansoCorto.addEventListener('click', function() {
+        cambiarModo(tiempoDescansoCorto)
+    })
 
-btnAgregar.addEventListener('click', function() {
-    agregarTarea()
-})
+    btnDescansoLargo.addEventListener('click', function() {
+        cambiarModo(tiempoDescansoLargo)
+    })
 
-inputTarea.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') agregarTarea()
-})
-let distracciones = 0
-const contadorDistracciones = document.getElementById('contador-distracciones')
-const avisoDistraccion = document.getElementById('aviso-distraccion')
+    const inputTarea = document.getElementById('input-tarea')
+    const btnAgregar = document.getElementById('btn-agregar')
+    const listaTareas = document.getElementById('lista-tareas')
 
-document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-        if (corriendo) {
-            distracciones++
-            contadorDistracciones.textContent = distracciones
+    function agregarTarea() {
+        const texto = inputTarea.value.trim()
+        
+        if (texto === '') return
+        const prioridad = document.getElementById('input-prioridad').value
+        const pomodoros = document.getElementById('input-pomodoros').value
+
+        const colores = { alta: '🔴', media: '🟡', baja: '🟢' }
+
+        const li = document.createElement('li')
+        li.innerHTML = `
+            <span>${colores[prioridad]} ${texto}</span>
+            <span>🍅 ${pomodoros}</span>
+            <button class="btn-listo">Listo</button>
+        `
+
+        li.querySelector('.btn-listo').addEventListener('click', function() {
+            li.style.textDecoration = 'line-through'
+            li.style.opacity = '0.5'
+        })
+
+        listaTareas.appendChild(li)
+        
+        inputTarea.value = ''
+    }
+
+    btnAgregar.addEventListener('click', function() {
+        agregarTarea()
+    })
+
+    inputTarea.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') agregarTarea()
+    })
+    let distracciones = 0
+    const contadorDistracciones = document.getElementById('contador-distracciones')
+    const avisoDistraccion = document.getElementById('aviso-distraccion')
+
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            if (corriendo) {
+                distracciones++
+                contadorDistracciones.textContent = distracciones
+            }
+        } else {
+            if (distracciones > 0) {
+                avisoDistraccion.textContent = '⚠️ Te distrajiste ' + distracciones + ' veces en este Pomodoro'
+            }
         }
-    } else {
-        if (distracciones > 0) {
-            avisoDistraccion.textContent = '⚠️ Te distrajiste ' + distracciones + ' veces en este Pomodoro'
+    })
+    const btnConfig = document.getElementById('btn-config')
+    const modalConfig = document.getElementById('modal-config')
+    const btnCerrarConfig = document.getElementById('btn-cerrar-config')
+    const btnGuardarConfig = document.getElementById('btn-guardar-config')
+
+    btnConfig.addEventListener('click', function() {
+        modalConfig.style.display = 'block'
+    })
+
+    btnCerrarConfig.addEventListener('click', function() {
+        modalConfig.style.display = 'none'
+    })
+
+    btnGuardarConfig.addEventListener('click', function() {
+        tiempoConcentracion = parseInt(document.getElementById('config-concentracion').value)
+        tiempoDescansoCorto = parseInt(document.getElementById('config-descanso-corto').value)
+        tiempoDescansoLargo = parseInt(document.getElementById('config-descanso-largo').value)
+        
+        cambiarModo(tiempoConcentracion)
+        modalConfig.style.display = 'none'
+    })
+    // =====================
+    // LOCALSTORAGE KEYS
+    // =====================
+    const KEY_CONSENTIMIENTO = 'ma_consentimiento'
+    const KEY_PARTICIPANTE = 'ma_participante'
+    const KEY_D2_COMPLETADO = 'ma_d2_completado'
+    const KEY_VALORACIONES = 'ma_valoraciones'
+
+    // =====================
+    // CONSENTIMIENTO
+    // =====================
+    function mostrarModal(id) {
+        document.getElementById(id).style.display = 'flex'
+    }
+
+    function ocultarModal(id) {
+        document.getElementById(id).style.display = 'none'
+    }
+
+    function iniciarApp() {
+        const consentido = localStorage.getItem(KEY_CONSENTIMIENTO)
+        if (!consentido) {
+            mostrarModal('modal-consentimiento')
+        } else {
+            asegurarParticipante()
         }
     }
-})
-const btnConfig = document.getElementById('btn-config')
-const modalConfig = document.getElementById('modal-config')
-const btnCerrarConfig = document.getElementById('btn-cerrar-config')
-const btnGuardarConfig = document.getElementById('btn-guardar-config')
 
-btnConfig.addEventListener('click', function() {
-    modalConfig.style.display = 'block'
-})
+    document.getElementById('btn-aceptar').addEventListener('click', function() {
+        localStorage.setItem(KEY_CONSENTIMIENTO, 'true')
+        ocultarModal('modal-consentimiento')
+        asegurarParticipante()
+    })
 
-btnCerrarConfig.addEventListener('click', function() {
-    modalConfig.style.display = 'none'
-})
+    document.getElementById('btn-rechazar').addEventListener('click', function() {
+        document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;text-align:center;padding:2rem;"><div><h2>Participación cancelada</h2><p style="color:#666;margin-top:1rem;">Para usar Mente Ágil necesitas aceptar el consentimiento informado. Puedes cerrar esta ventana.</p></div></div>'
+    })
 
-btnGuardarConfig.addEventListener('click', function() {
-    tiempoConcentracion = parseInt(document.getElementById('config-concentracion').value)
-    tiempoDescansoCorto = parseInt(document.getElementById('config-descanso-corto').value)
-    tiempoDescansoLargo = parseInt(document.getElementById('config-descanso-largo').value)
-    
-    cambiarModo(tiempoConcentracion)
-    modalConfig.style.display = 'none'
-})
+    // =====================
+    // CÓDIGO PARTICIPANTE
+    // =====================
+    function asegurarParticipante() {
+        let codigo = localStorage.getItem(KEY_PARTICIPANTE)
+        if (!codigo) {
+            codigo = crypto.randomUUID()
+            localStorage.setItem(KEY_PARTICIPANTE, codigo)
+        }
+        const spanCodigo = document.getElementById('codigo-participante')
+        if (spanCodigo) spanCodigo.textContent = codigo
+    }
+
+    // =====================
+    // VERIFICACIÓN D2
+    // =====================
+    document.getElementById('btn-cerrar-d2').addEventListener('click', function() {
+        ocultarModal('modal-d2')
+    })
+
+    function verificarD2AntesDeIniciar() {
+        const d2Hecho = localStorage.getItem(KEY_D2_COMPLETADO)
+        if (!d2Hecho) {
+            mostrarModal('modal-d2')
+            return false
+        }
+        return true
+    }
+
+    // =====================
+    // VALORACIÓN
+    // =====================
+    function mostrarValoracion() {
+        mostrarModal('modal-valoracion')
+    }
+
+    function guardarValoracion(valor) {
+        const valoraciones = JSON.parse(localStorage.getItem(KEY_VALORACIONES) || '[]')
+        valoraciones.push({
+            valor: valor,
+            fecha: new Date().toISOString(),
+            participante: localStorage.getItem(KEY_PARTICIPANTE)
+        })
+        localStorage.setItem(KEY_VALORACIONES, JSON.stringify(valoraciones))
+        ocultarModal('modal-valoracion')
+    }
+
+    // =====================
+    // INICIAR
+    // =====================
+    iniciarApp()
 </script>
 </body>
 
