@@ -551,6 +551,11 @@
 
   document.getElementById("downloadBtn").addEventListener("click",downloadCSV);
   document.getElementById("restartBtn").addEventListener("click",()=>location.reload());
+  const _origShowResults = showResults
+  showResults = function() {
+      localStorage.setItem('ma_d2_completado', 'true')
+      _origShowResults()
+  }
 </script>
 </body>
 </html>
