@@ -153,7 +153,7 @@ document.getElementById('btn-descanso-largo').addEventListener('click', function
 })
 
 // =====================================================================
-// GESTIÓN DE TAREAS (en memoria, no persiste)
+// GESTIÓN DE TAREAS (en memoria, no persiste)               (Pseudocódigo B10)
 // =====================================================================
 const inputTarea = document.getElementById('input-tarea')
 const listaTareas = document.getElementById('lista-tareas')

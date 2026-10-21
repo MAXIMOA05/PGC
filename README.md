@@ -68,6 +68,7 @@ Las tareas y el contador en curso se pierden al cerrar o recargar la pestaña.
 | B7 | Registro de pérdidas de foco | listener de `visibilitychange`, `reiniciarDistracciones()` |
 | B8 | Configuración | `cargarConfig()`, listener de `btn-guardar-config` |
 | B9 | Valoración de concentración | `mostrarValoracion()`, `guardarValoracion()` |
+| B10 | Gestión de tareas | `agregarTarea()` y sus listeners |
 
 ## Funcionalidades proyectadas (no implementadas)
 
