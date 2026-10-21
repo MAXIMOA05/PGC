@@ -17,7 +17,7 @@ Autores: Santiago López Forero y Andrea Valentina Rodríguez Ladino.
 
 ## Cómo ejecutarlo
 
-1. Abrir {{ AQUÍ VA: enlace de GitHub Pages verificado }}, o
+1. Abrir la versión publicada: https://maximoa05.github.io/PGC/ (etiqueta `v1.0-ciclo1`), o
 2. Descargar el repositorio y abrir `index.html` en un navegador actualizado (Chrome, Edge o Firefox).
 
 Para repetir el flujo desde el consentimiento, borrar los datos del sitio en el navegador
