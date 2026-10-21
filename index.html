@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agile Mind</title>
+    <link rel="stylesheet" href="css/estilos.css">
+
+</head>
+
+<body>
+
+    <div class="contenedor">
+        
+        <h1>Agile Mind</h1>
+
+        <div class="modos" id="modos">
+            <button id="btn-concentracion" data-modo="concentracion">Concentración</button>
+            <button id="btn-descanso-corto" data-modo="descansoCorto">Descanso corto</button>
+            <button id="btn-descanso-largo" data-modo="descansoLargo">Descanso largo</button>
+        </div>
+
+        <div class="temporizador">
+            <span id="tiempo">25:00</span>
+        </div>
+
+        <div class="controles">
+            <button id="btn-iniciar">Iniciar</button>
+            <button id="btn-reiniciar">Reiniciar</button>
+        </div>
+
+        <div class="agregar-tarea">
+            <h2>Agregar tarea</h2>
+            <input type="text" id="input-tarea" placeholder="Escribe una tarea..."/>
+            <select id="input-prioridad">
+                <option value="alta">🔴 Alta</option>
+                <option value="media">🟡 Media</option>
+                <option value="baja">🟢 Baja</option>
+            </select>
+            <input type="number" id="input-pomodoros" min="1" max="10" value="1"/>
+            <button id="btn-agregar">Agregar</button>
+        </div>
+      
+        <ul id="lista-tareas"></ul>
+            <div class="distracciones">
+                <p>Distracciones: <span id="contador-distracciones">0</span></p>
+                <p id="aviso-distraccion"></p>
+            </div>
+        <button id="btn-config">⚙️ Configuración</button>
+
+        <div id="modal-config" style="display:none;">
+            <div class="modal-contenido">
+                <h2>Configuración</h2>
+                
+                <label>Concentración (min)</label>
+                <input type="number" id="config-concentracion" value="25" min="1" max="60"/>
+                
+                <label>Descanso corto (min)</label>
+                <input type="number" id="config-descanso-corto" value="5" min="1" max="30"/>
+                
+                <label>Descanso largo (min)</label>
+                <input type="number" id="config-descanso-largo" value="15" min="1" max="60"/>
+
+                <button id="btn-guardar-config">Guardar</button>
+                <button id="btn-cerrar-config">Cerrar</button>
+                <div style="padding:12px; background:#f0fce8; border-radius:10px;">
+                    <p style="font-size:12px; color:#555; margin:0 0 4px;">Tu código de participante:</p>
+                    <p id="codigo-participante" style="font-size:13px; font-weight:700; color:#3a9900; word-break:break-all; margin:0;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- MODAL: CONSENTIMIENTO INFORMADO -->
+    <div id="modal-consentimiento" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:20px; padding:2rem; width:90%; max-width:500px; max-height:80vh; overflow-y:auto; display:flex; flex-direction:column; gap:1rem;">
+            <h2 style="color:#58CC02; margin:0;">Consentimiento Informado</h2>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                Este proyecto hace parte de una investigación académica desarrollada por estudiantes de 
+                Ingeniería de Sistemas de la Universidad de Cundinamarca, seccional Ubaté. 
+                Tu participación es completamente voluntaria y anónima.
+            </p>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                En este navegador se almacenan únicamente la aceptación de este consentimiento, un código
+                de participante anónimo generado automáticamente y las valoraciones de concentración (1 a 5)
+                junto con el número de veces que se ocultó la pestaña en cada lapso. Las tareas no se almacenan.
+                No se solicita ni se almacena ningún dato personal identificable.
+            </p>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                La plataforma <strong>no accede a cámara, micrófono ni ningún sensor del dispositivo</strong>, 
+                en cumplimiento de la Ley 1581 de 2012 de Colombia sobre Protección de Datos Personales.
+            </p>
+            <p style="font-size:13px; color:#555; line-height:1.6;">
+                Al hacer clic en <strong>"Acepto"</strong>, confirmas que has leído y comprendido esta 
+                información y que participas voluntariamente en el estudio.
+            </p>
+            <button id="btn-aceptar" style="background:#58CC02; color:#fff; border:none; border-radius:10px; padding:12px; font-size:15px; font-weight:700; cursor:pointer; border-bottom:3px solid #3a9900;">
+                ✓ Acepto participar
+            </button>
+            <button id="btn-rechazar" style="background:#f5f5f5; color:#666; border:2px solid #e0e0e0; border-radius:10px; padding:10px; font-size:14px; font-weight:600; cursor:pointer;">
+                No acepto
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL: VALORACIÓN DE CONCENTRACIÓN -->
+    <div id="modal-valoracion" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; border-radius:20px; padding:2rem; width:90%; max-width:380px; display:flex; flex-direction:column; gap:1rem; text-align:center;">
+            <span style="font-size:40px;">⭐</span>
+            <p style="font-size:14px; font-weight:700; color:#58CC02; margin:0;">¡Tiempo de concentración terminado!</p>
+            <h2 style="color:#333; margin:0;">¿Cómo estuvo tu concentración?</h2>
+            <p style="font-size:13px; color:#555;">Califica tu nivel de concentración durante este lapso</p>
+            <div style="display:flex; gap:10px; justify-content:center;">
+                <button class="btn-stars" onclick="guardarValoracion(1)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">1</button>
+                <button class="btn-stars" onclick="guardarValoracion(2)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">2</button>
+                <button class="btn-stars" onclick="guardarValoracion(3)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">3</button>
+                <button class="btn-stars" onclick="guardarValoracion(4)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">4</button>
+                <button class="btn-stars" onclick="guardarValoracion(5)" style="width:48px; height:48px; border-radius:10px; border:2px solid #e0e0e0; background:#f5f5f5; font-size:20px; cursor:pointer;">5</button>
+            </div>
+            <p style="font-size:11px; color:#999;">1 = muy baja · 5 = excelente</p>
+        </div>
+    </div>
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
